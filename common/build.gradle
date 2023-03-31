@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization' version "1.7.10"
+    id 'maven-publish'
 }
 
 android {
@@ -29,7 +31,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
+
+version = "0.0.1"
+group = "com.artsman"
 
 dependencies {
 
@@ -43,4 +54,31 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
+    //Ktor dependencies
+    def ktor_version = '1.6.4'
+    implementation "io.ktor:ktor-client-core:$ktor_version"
+// HTTP engine: The HTTP client used to perform network requests.
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+// The serialization engine used to convert objects to and from JSON.
+    implementation "io.ktor:ktor-client-serialization:$ktor_version"
+// Logging
+    implementation "io.ktor:ktor-client-logging:$ktor_version"
+
+    def serialization_version = '1.3.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = group
+            artifactId = 'common'
+            version = version
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }

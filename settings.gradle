@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Common"
 include ':common'
+include ':common_ui'
