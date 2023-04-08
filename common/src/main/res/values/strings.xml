@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Common</string>
+    <string name="default_preference_file">default_shared_preference</string>
 </resources>
