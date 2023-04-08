@@ -5,7 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.artsman.common.R
 
-class SharePreferenceLocalStore(private val context: Context): ILocalStore{
+open class SharePreferenceLocalStore(private val context: Context): ILocalStore{
 
     private val preference by lazy {
             context.getSharedPreferences(context.getString(R.string.default_preference_file), MODE_PRIVATE)
